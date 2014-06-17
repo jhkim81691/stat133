@@ -5,12 +5,12 @@
 
 mySD <- function(x) {
     ## Take in a vector of numbers and return its standard deviation.
-    "NotImplemented"
+    return(sqrt(var(x)))
 }
 
 myMean <- function(x) {
     ## Take in a vector of numbers and return its mean.
-    "NotImplemented"
+    return(sum(x)/length(x))
 }
 
 ## tests
