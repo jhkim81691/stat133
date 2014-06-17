@@ -1,0 +1,17 @@
+{
+    "email": "jhkim81691@berkeley.edu", 
+    "github_name": "jhkim81691", 
+    "grades": {
+        "lab2": {
+            "earned": 10, 
+            "hash": "abced91ea359c72006d7e80dbc1b2e572f56a977", 
+            "note": "", 
+            "penalty": 0, 
+            "possible": 10
+        }
+    }, 
+    "login": "jhkim81691", 
+    "name": "Jaeho Kim", 
+    "status": "enrolled", 
+    "url": "git@github.com:jhkim81691/stat133.git"
+}
