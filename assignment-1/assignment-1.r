@@ -42,7 +42,8 @@ toCelcius <- function(temp.far) {
     # <temp.far> and return the values of each entry in Celcius
 
     #your code here
-
+	temp.c <- (temp.far-32)*5/9
+	return(temp.c)
 }
 
 
@@ -72,7 +73,12 @@ calculateS <- function(data, selected.year, selected.day) {
         stop('invalid date')
     
     #your code here
-    
+	selected.min <- data$min[(data$year == selected.year) & (data$day == selected.day)]
+	selected.max <- data$max[(data$year == selected.year) & (data$day == selected.day)]
+	selected.mean <- data$mean[(data$year == selected.year) & (data$day == selected.day)]
+	
+    selected.S <- (selected.max - selected.min)/selected.mean
+	return(selected.S)
 }
 
 
@@ -97,10 +103,13 @@ tryCatch(
 #<subset.2010>, <temp.differences>, <max.difference>, and <max.difference.day>.
 
 #subset.2010 <- #your code here
+subset.2010 <- temperature.data[temperature.data$year == 2010, ]
 #temp.differences <- #your code here
+temp.differences <- subset.2010$max - subset.2010$min
 #max.differences <- #your code here
+max.differences <- max(temp.differences)
 #max.differences.day <- #your code here
-
+max.differences.day <- subset.2010$day[temp.differences == max(temp.differences)]
 
 # --------------------------------------------------------------
 # Problem 2 - b
@@ -111,13 +120,16 @@ tryCatch(
 # determining these subsets
     
 #your code here
+quantile.65 <- quantile(temperature.data$max, probs=.65)
 #mean.low.above <- #your code here
+mean.low.above <- mean(temperature.data$min[temperature.data$max > quantile.65])
 #mean.low.below <- #your code here
+mean.low.below <- mean(temperature.data$min[temperature.data$max < quantile.65])
 
 # --------------------------------------------------------------
 # Problem 3
 # -------------------------------------------------------------- 
-# Use the variabiables from "assignment-1-3.Rda" (<observed.animals> and
+# Use the variables from "assignment-1-3.Rda" (<observed.animals> and
 # <animal.key>) to create two new vectors. Both should contain one entry for
 # each of the entries in <observed.animals>. The entries of the first should
 # correspond to the diet of observed.animals (as given by <animal.key>) while
@@ -126,13 +138,15 @@ tryCatch(
 # <observed.types> respectively.
 
 #your code here
+
 #observed.diets <- #your code here
+observed.diets <- animal.key$diet[match(observed.animals, animal.key$animal)]
 #observed.types <- #your code here
+observed.types <- animal.key$type[match(observed.animals, animal.key$animal)]
 
 # Use your newly created vectors to calculate the total number of observed
 # animals that are both carnivores and mammals.  Store this variable as
 # <carnivore.mammals>
 
 #n.carnivore.mammals <- #your code here
-
-    
+n.carnivore.mammals <- sum(observed.diets == "carnivore" & observed.types == "mammal")
