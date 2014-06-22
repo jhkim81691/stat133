@@ -1,0 +1,107 @@
+INFO:root:(2 points) os.path.isfile("assignment-1.r") is True
+INFO:root:(2 points) R('all.equal(toCelcius(c(32, 100, 210)), c(0, 340/9, 890/9))')[0] is True
+INFO:root:(2 points) R('all.equal(toCelcius(32), 0)')[0] is True
+INFO:root:(2 points) R('all.equal(toCelcius(-100), -660/9)')[0] is True
+INFO:root:Executed R('temperature.data = read.table(\'http://www.stat.berkeley.edu/classes/s133/data/january.tab\', header=T)')
+INFO:root:(2 points) R('all.equal(calculateS(temperature.data, 2009, 28), 0.4807155, tolerance=.Machine$double.eps^0.3)')[0] is True
+INFO:root:(2 points) R('all.equal(calculateS(temperature.data, 2007, 1), 0.4095435, tolerance=.Machine$double.eps^0.4)')[0] is True
+INFO:root:Executed R('jan = temperature.data')
+INFO:root:Executed R('jan$min = jan$min - 2')
+INFO:root:(2 points) R('all.equal(calculateS(jan, 2009, 28), 0.5179802, tolerance=.Machine$double.eps^0.3)')[0] is True
+INFO:root:(2 points) R('all.equal(calculateS(jan, 2007, 28), 0.33303, tolerance=.Machine$double.eps^0.3)')[0] is True
+INFO:root:(2 points) R('all.equal(subset.2010, temperature.data[temperature.data$year == 2010, ])')[0] is True
+INFO:root:(2 points) R('all.equal(temp.differences, subset.2010$max - subset.2010$min)')[0] is True
+INFO:root:(2 points) R('all.equal(max.differences, max(temp.differences))')[0] is True
+ERROR:root:(2 points) Checking R('all.equal(max.difference, max(temp.differences))')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   Traceback error
+ERROR:root:Got exception:
+Traceback (most recent call last):
+  File "../check.py", line 74, in check
+    result = eval(command, g)
+  File "<string>", line 1, in <module>
+  File "/usr/lib64/python2.7/site-packages/rpy2/robjects/__init__.py", line 240, in __call__
+    res = self.eval(p)
+  File "/usr/lib64/python2.7/site-packages/rpy2/robjects/functions.py", line 86, in __call__
+    return super(SignatureTranslatedFunction, self).__call__(*args, **kwargs)
+  File "/usr/lib64/python2.7/site-packages/rpy2/robjects/functions.py", line 35, in __call__
+    res = super(Function, self).__call__(*new_args, **new_kwargs)
+RRuntimeError: Error in all.equal(max.difference, max(temp.differences)) : 
+  object 'max.difference' not found
+
+ERROR:root:Traceback (most recent call last):
+  File "../check.py", line 74, in check
+    result = eval(command, g)
+  File "<string>", line 1, in <module>
+  File "/usr/lib64/python2.7/site-packages/rpy2/robjects/__init__.py", line 240, in __call__
+    res = self.eval(p)
+  File "/usr/lib64/python2.7/site-packages/rpy2/robjects/functions.py", line 86, in __call__
+    return super(SignatureTranslatedFunction, self).__call__(*args, **kwargs)
+  File "/usr/lib64/python2.7/site-packages/rpy2/robjects/functions.py", line 35, in __call__
+    res = super(Function, self).__call__(*new_args, **new_kwargs)
+RRuntimeError: Error in all.equal(max.difference, max(temp.differences)) : 
+  object 'max.difference' not found
+
+Traceback (most recent call last):
+  File "../check.py", line 74, in check
+    result = eval(command, g)
+  File "<string>", line 1, in <module>
+  File "/usr/lib64/python2.7/site-packages/rpy2/robjects/__init__.py", line 240, in __call__
+    res = self.eval(p)
+  File "/usr/lib64/python2.7/site-packages/rpy2/robjects/functions.py", line 86, in __call__
+    return super(SignatureTranslatedFunction, self).__call__(*args, **kwargs)
+  File "/usr/lib64/python2.7/site-packages/rpy2/robjects/functions.py", line 35, in __call__
+    res = super(Function, self).__call__(*new_args, **new_kwargs)
+RRuntimeError: Error in all.equal(max.difference, max(temp.differences)) : 
+  object 'max.difference' not found
+
+INFO:root:(2 points) R('all.equal(max.differences.day, subset.2010$day[temp.differences == max.differences])')[0] is True
+ERROR:root:(2 points) Checking R('all.equal(max.difference.day, subset.2010$day[temp.differences == max.difference])')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   Traceback error
+ERROR:root:Got exception:
+Traceback (most recent call last):
+  File "../check.py", line 74, in check
+    result = eval(command, g)
+  File "<string>", line 1, in <module>
+  File "/usr/lib64/python2.7/site-packages/rpy2/robjects/__init__.py", line 240, in __call__
+    res = self.eval(p)
+  File "/usr/lib64/python2.7/site-packages/rpy2/robjects/functions.py", line 86, in __call__
+    return super(SignatureTranslatedFunction, self).__call__(*args, **kwargs)
+  File "/usr/lib64/python2.7/site-packages/rpy2/robjects/functions.py", line 35, in __call__
+    res = super(Function, self).__call__(*new_args, **new_kwargs)
+RRuntimeError: Error in all.equal(max.difference.day, subset.2010$day[temp.differences ==  : 
+  object 'max.difference.day' not found
+
+ERROR:root:Traceback (most recent call last):
+  File "../check.py", line 74, in check
+    result = eval(command, g)
+  File "<string>", line 1, in <module>
+  File "/usr/lib64/python2.7/site-packages/rpy2/robjects/__init__.py", line 240, in __call__
+    res = self.eval(p)
+  File "/usr/lib64/python2.7/site-packages/rpy2/robjects/functions.py", line 86, in __call__
+    return super(SignatureTranslatedFunction, self).__call__(*args, **kwargs)
+  File "/usr/lib64/python2.7/site-packages/rpy2/robjects/functions.py", line 35, in __call__
+    res = super(Function, self).__call__(*new_args, **new_kwargs)
+RRuntimeError: Error in all.equal(max.difference.day, subset.2010$day[temp.differences ==  : 
+  object 'max.difference.day' not found
+
+Traceback (most recent call last):
+  File "../check.py", line 74, in check
+    result = eval(command, g)
+  File "<string>", line 1, in <module>
+  File "/usr/lib64/python2.7/site-packages/rpy2/robjects/__init__.py", line 240, in __call__
+    res = self.eval(p)
+  File "/usr/lib64/python2.7/site-packages/rpy2/robjects/functions.py", line 86, in __call__
+    return super(SignatureTranslatedFunction, self).__call__(*args, **kwargs)
+  File "/usr/lib64/python2.7/site-packages/rpy2/robjects/functions.py", line 35, in __call__
+    res = super(Function, self).__call__(*new_args, **new_kwargs)
+RRuntimeError: Error in all.equal(max.difference.day, subset.2010$day[temp.differences ==  : 
+  object 'max.difference.day' not found
+
+INFO:root:Executed R('load(\'assignment-1-3.Rda\')')
+INFO:root:Executed R('idcs = match(observed.animals, animal.key$animal)')
+INFO:root:(2 points) R('all.equal(observed.diets, animal.key$diet[idcs])')[0] is True
+INFO:root:(2 points) R('all.equal(observed.types, animal.key$type[idcs])')[0] is True
+INFO:root:(2 points) R('all.equal(n.carnivore.mammals, sum(observed.diets==\'carnivore\' & observed.types==\'mammal\'))')[0] is True
+INFO:root:You got a 30 out of 30.

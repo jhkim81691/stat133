@@ -2,6 +2,13 @@
     "email": "jhkim81691@berkeley.edu", 
     "github_name": "jhkim81691", 
     "grades": {
+        "assignment-1": {
+            "earned": 30, 
+            "hash": "c2350a8ad05cf021b4a7ccf4e08e3c42bdb1ec6c", 
+            "note": "", 
+            "penalty": 0, 
+            "possible": 30
+        }, 
         "lab2": {
             "earned": 10, 
             "hash": "abced91ea359c72006d7e80dbc1b2e572f56a977", 

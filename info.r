@@ -1,5 +1,0 @@
-name = "Jaeho Kim"
-SID = "20871085"
-email = "jhkim81691@berkeley.edu"
-github_name = "jhkim81691"
-status = "enrolled"
