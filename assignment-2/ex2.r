@@ -18,9 +18,11 @@ errMsg = function(err) print(paste("ERROR:", err))
 truncate <- function(input.vector, trim) {
 
     stopifnot(0<=trim & trim<=0.5)
-    
-    # your code here
-
+    upper.quantile <- quantile(input.vector, 1-trim)
+	lower.quantile <- quantile(input.vector, trim)
+	
+	truncated.vector <- input.vector[input.vector >= lower.quantile & input.vector <= upper.quantile]
+	return(truncated.vector)
 }
 
 tryCatch(checkEquals(c(2, 3, 4), truncate(1:5, trim=0.25)), error=function(err)
@@ -48,9 +50,12 @@ tryCatch(checkIdentical(integer(0), truncate(1:6, trim=0.5)),
 
 
 standardNormalize <- function(input.vector) {
-
-    # your code here
-
+	input.mean <- mean(input.vector)
+	input.sd <- sd(input.vector)
+    
+	sn.vector <- (input.vector-input.mean)/input.sd
+	outlier <- sum((sn.vector < -3) | (sn.vector > 3)) > 0
+	return(list(sn.vector, outlier))
 }
 
 set.seed(47)
