@@ -31,9 +31,15 @@ errMsg <- function(err) print(paste('ERROR:', err))
 # subset.
 
 smokeDiff <- function(data.subset) {
+	data.smoke <- data.subset[data.subset$smoke == 1, ]
+	data.nonsmoke <- data.subset[data.subset$smoke == 0, ]
+	weight.smoke <- mean(data.smoke$bwt)
+	weight.nonsmoke <- mean(data.nonsmoke$bwt)
+	
+	data.sd <- sd(data.subset$bwt)
 
-    # your code here
-
+	normalized.diff <- (weight.smoke-weight.nonsmoke)/data.sd
+	return(normalized.diff)
 }
 
 
@@ -56,9 +62,15 @@ smokeDiff <- function(data.subset) {
 # entire subset.
 
 heavyDiff <- function(data.subset, weight.cutoff) {
+	data.heavy <- data.subset[data.subset$weight > weight.cutoff, ]
+	data.light <- data.subset[data.subset$weight <= weight.cutoff, ]
+	mean.heavy <- mean(data.heavy$bwt)
+	mean.light <- mean(data.light$bwt)
+	
+	data.sd <- sd(data.subset$bwt)
 
-    # your code here
-
+	normalized.diff <- (mean.heavy-mean.light)/data.sd
+	return(normalized.diff)
 }
 
 # Implement the function "superSubset". This function should take the data set
@@ -102,6 +114,9 @@ superSubset <- function(data, max.height, max.weight, max.age, parity) {
 # babies.data <- load the data here
 # mothers.subset <- # your code here
 # subset.diff <- # your code here
+babies.data <- read.csv("babies.csv")
+mothers.subset <- babies.data[superSubset(babies.data, 65, 150, 30, 0), ]
+subset.diff <- smokeDiff(mothers.subset)
 
 # tests for smokeDiff
 tryCatch(checkEquals(-0.4639051, smokeDiff(babies.data[1:500, ]),
