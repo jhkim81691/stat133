@@ -1,11 +1,11 @@
 median.norm = function(x) {
     # x: p by n data matrix
     #    where columns are the samples and rows are observations
-
+	n = ncol(x)
     medians = apply(x, 2, median)
     reference = mean(medians)
     d = reference - medians
-    norm = sapply(1:14,  function(i) x[,i]+d[i])
+    norm = sapply(1:n,  function(i) x[,i]+d[i])
     dimnames(norm) = dimnames(x)
     return(norm)
 }
@@ -20,7 +20,13 @@ percentile.norm = function(x, prob=0.75) {
     # By default it will align the distributions by
     # the third quartile. 
 
-    # your code here
+	n = ncol(x)
+    medians = apply(x, 2, quantile, probs=prob)
+    reference = mean(medians)
+    d = reference - medians
+    norm = sapply(1:n,  function(i) x[,i]+d[i])
+    dimnames(norm) = dimnames(x)
+    return(norm)
 }
 
 full.quantile.norm = function(x) {
@@ -43,7 +49,12 @@ full.quantile.norm2 = function(x) {
     # Should work like full.quantile.norm, but the reference will use the median
     # for each row.
 
-    # your code here
+    x.sort = apply(x, 2, sort)    # sort within sample
+    x.rank = apply(x, 2, rank)    # rank within sample
+    reference = rowMeans(x.sort, 1, median)
+    norm = apply(x.rank, 2, function(smpl) reference[smpl])
+    dimnames(norm) = dimnames(x)
+    return(norm)
 }
 
 
@@ -55,5 +66,10 @@ full.quantile.norm3 = function(x) {
     # Should work like full.quantile.norm, but the reference will use the third
     # quartile for each row.
 
-    # your code here
+    x.sort = apply(x, 2, sort)    # sort within sample
+    x.rank = apply(x, 2, rank)    # rank within sample
+    reference = rowMeans(x.sort, 1, quantile, probs=0.75)
+    norm = apply(x.rank, 2, function(smpl) reference[smpl])
+    dimnames(norm) = dimnames(x)
+    return(norm)
 }
