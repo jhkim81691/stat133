@@ -16,7 +16,9 @@ load('prostatedata.Rda')
 # As we mentioned, patients with prostate cancer are labeled with a 2. How many of
 # these patients are there?
 
-# n.prostate <- # your code here
+status.nprostate <- as.numeric(dimnames(prost.data)[[2]]) == 1
+status.prostate <- as.numeric(dimnames(prost.data)[[2]]) == 2
+n.prostate <- sum(status.prostate)
 
 # Suppose we're interested in the mean of the expression levels for each gene,
 # broken down by cancer status. Please create a 2 x 1000 matrix giving the
@@ -26,9 +28,13 @@ load('prostatedata.Rda')
 # gene from the first row averaged over all patients without prostate
 # cancer). Do the same for a trimmed mean with trim parameter of 0.1.
 
-# status.means <- # your code here
-# status.trim.means <- # your code here
+nprostate.means <- apply(prost.data[ ,status.nprostate], 1, mean)
+prostate.means <- apply(prost.data[ ,status.prostate], 1, mean)
+status.means <- matrix(c(nprostate.means, prostate.means), ncol=2)
 
+nprostate.trim.means <- apply(prost.data[ ,status.nprostate], 1, mean, trim=0.1)
+prostate.trim.means <- apply(prost.data[ ,status.prostate], 1, mean, trim=0.1)
+status.trim.means <- matrix(c(nprostate.trim.means, prostate.trim.means), ncol=2)
 
 # Back to the original dataset. We are interested in looking at the distribution
 # of expression levels for each patient. Produce a a single plot containing a
@@ -36,7 +42,8 @@ load('prostatedata.Rda')
 # cancer should be colored blue while patents with should be colored red. Set
 # the pch parameter to '.'.
 
-# your code here
+cols = c("blue", "red")
+boxplot(prost.data, col=cols[as.numeric(dimnames(prost.data)[[2]])], pch='.')
 
 # Suppose we want to remove any gene that has an unusually low expression level
 # across many patients. We'll define "unusually low" as below the quantile
@@ -62,8 +69,11 @@ load('prostatedata.Rda')
 #   more than <max.low.expr> patients
 
 quantileCutoff <- function(data, q.cutoff, max.low.expr) {
-
-    # your code here
+	expr.cutoff <- quantile(test.data, probs=0.25)
+	data.expr <- data < expr.cutoff
+	
+	low.expr.idcs <- which(apply(data.expr, 1, sum) > max.low.expr)
+    return(low.expr.idcs)
 }
 
 tryCatch(checkEquals(quantile.cutoff.t, quantileCutoff(test.data, 0.25, 10)),
@@ -89,8 +99,21 @@ tryCatch(checkEquals(quantile.cutoff.t, quantileCutoff(test.data, 0.25, 10)),
 # t-test page for independent two sample t-tests with unequal sample sizes)
 
 tConvert <- function(gene) {
-
-    # your code here
+	gene.status.nprostate <- as.numeric(names(gene)) == 1
+	gene.status.prostate <- as.numeric(names(gene)) == 2
+	gene.nprostate <- gene[gene.status.nprostate]
+	gene.prostate <- gene[gene.status.prostate]
+	
+	n.1 <- length(gene.nprostate)
+	n.2 <- length(gene.prostate)
+	mean.1 <- mean(gene.nprostate)
+	mean.2 <- mean(gene.prostate)
+	s.1 <- sd(gene.nprostate)
+	s.2 <- sd(gene.prostate)
+	s.12 <- sqrt(((n.1-1)*s.1^2 + (n.2-1)*s.2^2) / (n.1 + n.2 - 2))
+	
+	t.stat <- (mean.1 - mean.2) / (s.12 * sqrt(1/n.1 + 1/n.2))
+	return(t.stat)
 }
 
 tryCatch(checkEquals(0.5889667, unname(tConvert(test.data[1, ])),
@@ -114,8 +137,10 @@ tryCatch(checkEquals(0.5889667, unname(tConvert(test.data[1, ])),
 # by 2 to get the actual p-value.
 
 pValConverter <- function(data) {
-
-    # your code here
+	t.vals <- apply(data, 1, tConvert)
+	p.vals <- (1-pt(abs(t.vals), df=100))*2
+	
+	return(p.vals)
 }
 
 tryCatch(checkEquals(p.val.converter.t, pValConverter(test.data)),
@@ -131,6 +156,8 @@ tryCatch(checkEquals(p.val.converter.t, pValConverter(test.data)),
 # "abline" function). This line represents the expected proportion p-values in
 # each bin.
 
+prost.p.vals <- pValConverter(prost.data)
+#hist(prost.p.vals, breaks=0.05, freq = F, xlab="p-values")
 # your code here
 
 
@@ -156,8 +183,11 @@ tryCatch(checkEquals(p.val.converter.t, pValConverter(test.data)),
 # discoveries
 
 FDR <- function(data, alpha) {
-
-    # your code here
+	data.pvals <- pValConverter(data)
+	false.positive <- nrow(data)*alpha
+	fdr <- false.positive/sum(data.pvals < alpha)
+	
+	return(fdr)
 }
 
 tryCatch(checkEquals(0.1923077, FDR(prost.data[1:500, ], 0.005), tolerance=1e-6),
