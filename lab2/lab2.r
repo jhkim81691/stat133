@@ -157,8 +157,8 @@ tryCatch(checkEquals(p.val.converter.t, pValConverter(test.data)),
 # each bin.
 
 prost.p.vals <- pValConverter(prost.data)
-#hist(prost.p.vals, breaks=0.05, freq = F, xlab="p-values")
-# your code here
+hist(prost.p.vals, breaks=1/0.05, freq = F, main="Prostate Data p-values", xlab="p-values")
+abline(h=1, col="red")
 
 
 # You should notice that your histogram contains a spike for the lowest
