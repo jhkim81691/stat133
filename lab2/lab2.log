@@ -1,0 +1,21 @@
+INFO:root:(0 points) os.path.isfile("lab2.r") is True
+INFO:root:Executed R('load(\'test-vars.rda\')')
+INFO:root:Executed R('load(\'prostatedata.Rda\')')
+INFO:root:(2 points) R('all.equal(n.prostate, sum(colnames(prost.data) == 2))')[0] is True
+ERROR:root:(2 points) Checking R('all.equal(unname(status.means), unname(apply(prost.data, 1, function(gene) by(gene, names(gene), mean))))')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   Attributes: < Component “dim”: Mean relative difference: 1.992016 >
+ERROR:root:(2 points) Checking R('all.equal(unname(status.trim.means), unname(apply(prost.data, 1, function(gene) by(gene, names(gene), mean, trim=0.1))))')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   Attributes: < Component “dim”: Mean relative difference: 1.992016 >
+INFO:root:(2 points) R('all.equal(quantile.cutoff.t, quantileCutoff(test.data, 0.25, 10))')[0] is True
+ERROR:root:(2 points) Checking R('all.equal(c(4,8,14), quantileCutoff(prost.data[1:20, 1:50], 0.1, 10))')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   Numeric: lengths (3, 11) differ
+INFO:root:(2 points) R('all.equal(0.5889667, unname(tConvert(test.data[1, ])), tolerance=1e-6)')[0] is True
+INFO:root:(2 points) R('all.equal(0.6643303, unname(tConvert(prost.data[2, ])), tolerance=1e-6)')[0] is True
+INFO:root:(2 points) R('all.equal(p.val.converter.t, pValConverter(test.data))')[0] is True
+INFO:root:(2 points) R('all.equal(c(0.8927677, 0.7532672), pValConverter(prost.data[20:21, 1:80]), tolerance=1e-6)')[0] is True
+INFO:root:(2 points) R('all.equal(0.1923077, FDR(prost.data[1:500, ], 0.005), tolerance=1e-6)')[0] is True
+INFO:root:(2 points) R('all.equal(0.625, FDR(prost.data[1:100, ], 0.05), tolerance=1e-6)')[0] is True
+INFO:root:You got a 16 out of 22.

@@ -1,0 +1,8 @@
+INFO:root:(0 points) os.path.isfile("ex1.r") is True
+INFO:root:Executed R('load(\'ex1-tests.rda\')')
+INFO:root:(2 points) R('all.equal(sum(is.na(readRemove(\'test.data\', max.na=1, sep=\';\'))), sum(is.na(test.1)))')[0] is True
+INFO:root:(2 points) R('all.equal(readRemove(\'babies.csv\', sep=\',\', header=T), test.2)')[0] is True
+ERROR:root:(2 points) Checking R('all.equal(sum(is.na(readRemove(\'test.data\', max.na=0, sep=\';\'))), 0)')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   Mean relative difference: 1
+INFO:root:You got a 4 out of 6.

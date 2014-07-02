@@ -1,0 +1,13 @@
+INFO:root:(0 points) os.path.isfile("ex3.r") is True
+INFO:root:Executed R('babies=read.csv(\'babies.csv\', header=T)')
+INFO:root:Executed R('mothers.indcs <- superSubset(babies, 65, 150, 30, 0)')
+INFO:root:Executed R('mothers <- babies[mothers.indcs,]')
+INFO:root:Executed R('subset_diff <- smokeDiff(mothers)')
+INFO:root:(1 points) R('all.equal(babies.data, babies)')[0] is True
+INFO:root:(1 points) R('all.equal(mothers.subset, mothers)')[0] is True
+INFO:root:(1 points) R('all.equal(subset.diff, subset_diff)')[0] is True
+INFO:root:(2 points) R('all.equal(0.4834682, abs(smokeDiff(babies[500:1000, ])), tolerance=1e-6)')[0] is True
+INFO:root:(1 points) R('all.equal(0.2867848, abs(heavyDiff(babies[500:1000, ], 150)), tolerance=1e-6)')[0] is True
+INFO:root:(1 points) R('all.equal(NaN, heavyDiff(babies.data[0, ], 140))')[0] is True
+INFO:root:(1 points) R('all.equal(394, length(superSubset(babies.data, max.height=65, max.weight=150, max.age=30, parity=0)))')[0] is True
+INFO:root:You got a 8 out of 8.

@@ -1,0 +1,5 @@
+INFO:root:(2 points) Is the boxplot correctly colored? is y
+INFO:root:(2 points) Is the pch parameter set to '.'? is y
+INFO:root:(2 points) Is the histogram normalized? is y
+INFO:root:(2 points) Is there a red horizontal line at y=1? is y
+INFO:root:You got a 8 out of 8.

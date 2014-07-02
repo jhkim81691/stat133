@@ -1,0 +1,13 @@
+INFO:root:(0 points) os.path.isfile("ex2.r") is True
+INFO:root:(1 points) R('all.equal(4:7, truncate(1:10, trim=0.25))')[0] is True
+INFO:root:(1 points) R('all.equal(integer(0), truncate(1:10, trim=0.5))')[0] is True
+INFO:root:Executed R('load(\'ex2-tests.rda\')')
+INFO:root:Executed R('set.seed(47)')
+INFO:root:Executed R('check1.test <- c(rnorm(100, 5, 1), 0)')
+INFO:root:(1 points) R('all.equal(standard.normalize.t1[[1]], standardNormalize(check1.test)[[1]], tolerance=1e-5)')[0] is True
+INFO:root:(2 points) R('standardNormalize(check1.test)[[2]]')[0] is True
+INFO:root:Executed R('set.seed(47)')
+INFO:root:Executed R('check2.test <- rnorm(50, 5, 5)')
+INFO:root:(1 points) R('all.equal(standard.normalize.t2[[1]], standardNormalize(check2.test)[[1]], tolerance=1e-5)')[0] is True
+INFO:root:(2 points) R('!standardNormalize(check2.test)[[2]]')[0] is True
+INFO:root:You got a 8 out of 8.

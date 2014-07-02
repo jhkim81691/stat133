@@ -1,0 +1,19 @@
+INFO:root:(0 points) os.path.isfile("ex4.r") is True
+INFO:root:Executed R('wc_data <- read.table(\'world_cup.data\', header=T, sep=\' \')')
+INFO:root:Executed R('cfr_teams <- sapply(wc.data$team, function(team) cardFoulRatio(wc.data, team))')
+INFO:root:Executed R('low_cfr_teams <- wc_data[wc_data$cfr<0.12, ]')
+INFO:root:Executed R('low_cfr_rank <- rankAGD(low_cfr_teams)')
+INFO:root:(1 points) R('all.equal(wc.data, wc_data)')[0] is True
+ERROR:root:(1 points) Checking R('all.equal(cfr.teams, cfr_teams)')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   names for target but not for current
+ERROR:root:(1 points) Checking R('all.equal(low.cfr.teams, low_cfr_teams )')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   Attributes: < Component “row.names”: Numeric: lengths (17, 0) differ >
+ERROR:root:(1 points) Checking R('all.equal(low.cfr.rank, low_cfr_rank)')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   Lengths: 17, 0
+INFO:root:(1 points) R('all.equal(-0.5, avgGoalDiff(wc_data, \'England\'), tolerance=1e-5)')[0] is True
+INFO:root:(1 points) R('all.equal(0.04761905, cardFoulRatio(wc_data, \'Spain\'), tolerance=1e-5)')[0] is True
+INFO:root:(2 points) R('all.equal(c(\'Uruguay\', \'Switzerland\', \'USA\'), as.character(rankAGD(wc_data[30:32, ])))')[0] is True
+INFO:root:You got a 5 out of 8.
