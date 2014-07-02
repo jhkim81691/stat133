@@ -19,8 +19,16 @@ load('ex3-tests.rda')
 #   levels (this should be a num.factors x num.numeric.variables matrix).
 
 meanByLevel <- function(data) {
-
-    # your code here
+	check.levels <- sapply(1:ncol(data), function(x) is.character(levels(data[, x])))
+	name.levels <- levels(data[, check.levels])
+	
+    num.levels <- 1:length(name.levels)
+	
+	level.means <- t(sapply(num.levels, function(x)
+		sapply(data[data[,check.levels]==name.levels[x], !check.levels], mean)))
+	dimnames(level.means) <- list(name.levels, dimnames(level.means)[[2]])
+	
+	return(level.means)
 }
 
 tryCatch(checkIdentical(mean.by.level.t, meanByLevel(iris)), error=function(err)
@@ -47,8 +55,16 @@ tryCatch(checkIdentical(mean.by.level.t, meanByLevel(iris)), error=function(err)
 #   dimensions of your return value are correct.
 
 stdLevelDiff <- function(data) {
-
-    # your code here
+	level.means <- meanByLevel(data)
+	
+	check.levels <- sapply(1:ncol(data), function(x) is.character(levels(data[, x])))
+	
+	data.means <- apply(data[,!check.levels], 2, mean)
+	data.sd <- apply(data[,!check.levels], 2, sd)
+	
+	level.diff <- t(sapply(1:nrow(level.means), function(x) (level.means[x, ]-data.means)/data.sd))
+	dimnames(level.diff) <- list(levels(data[, check.levels]), dimnames(level.diff)[[2]])
+	return(level.diff)
 }
 
 tryCatch(checkIdentical(std.level.diff.t, abs(stdLevelDiff(iris))),
