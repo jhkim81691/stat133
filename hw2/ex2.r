@@ -21,12 +21,12 @@ load('ex2-tests.rda')
 #   variance given by <var> and mean given by the jth entry of <means>.
 
 simpleNormSim <- function(means, sim.size=50, var=1) {
-
-    # your code here
+	simulation <- lapply(means, function(x) rnorm(sim.size, mean=x, sd=sqrt(var)))
+    return(simulation)
 }
 
 set.seed(47)
-tryCatch(checkIdentical(simple.norm.sim.t, simpleNormSim(c(25, 50, 75))),
+tryCatch(checkEquals(simple.norm.sim.t, simpleNormSim(c(25, 50, 75)), tol=1e-6),
          error=function(err) errMsg(err)) 
 
 # Implement the function "advancedNormSim". This function should generate several
@@ -54,7 +54,10 @@ tryCatch(checkIdentical(simple.norm.sim.t, simpleNormSim(c(25, 50, 75))),
 advancedNormSim <- function(sim.sizes, means, vars) {
 
     stopifnot(all.equal(length(sim.sizes), length(means), length(vars)))
-    # your code here
+	
+	i = 1:length(sim.sizes)
+	simulations <- lapply(i, function(x) rnorm(sim.sizes[x], mean=means[x], sd=sqrt(vars[x])))
+    return(simulations)
 }   
 
 sizes.t <- c(25, 50, 25, 50)
@@ -62,6 +65,6 @@ means.t <- c(0, 5, 5, 0)
 vars.t <- c(1, 2, 1, 2)
 
 set.seed(47)
-tryCatch(checkIdentical(advanced.norm.sim.t, advancedNormSim(sizes.t, means.t,
-                                                             vars.t)),
+tryCatch(checkEquals(advanced.norm.sim.t, advancedNormSim(sizes.t, means.t,
+                                                             vars.t), tol=1e-6),
          error=function(err) errMsg(err))
