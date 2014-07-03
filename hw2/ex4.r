@@ -34,11 +34,27 @@ load('ex4-tests.rda')
 # arr.ind=T) functions helpful (though they are not the only ways to do this)
 
 identifyDuplicates <- function(data) {
-
-    # your code here
+	n <- ncol(data)
+	duplicates <- sapply(1:(n-1), function(x)
+		as.matrix(data[ ,x]==data[ ,(x+1):n]))
+	
+	l <- length(duplicates)
+	duplicate.sum <- sapply(1:l, function(x) apply(duplicates[[x]], 2, sum))
+	duplicate.check <- sapply(1:l, function(x) duplicate.sum[[x]] == 3)
+	
+	duplicate.pairs <- numeric(0)
+	
+	if (sum(sapply(1:l, function(x) sum(duplicate.check[[x]] ) )) > 0) {
+		for (i in which(sapply(1:l, function(x) sum(duplicate.check[[x]]) > 0 ))) {
+			duplicate.pairs <- rbind(duplicate.pairs, t(rbind(i, (which(duplicate.check[[i]]))+i) )) 
+		}
+		dimnames(duplicate.pairs) = NULL
+		unname(duplicate.pairs, force=T)
+	}
+	return (duplicate.pairs)
 }
     
 tryCatch(checkEquals(numeric(0), identifyDuplicates(ex4.test1)),
          error=function(err) errMsg(err))
-tryCatch(checkIdentical(identify.duplicates.t, identifyDuplicates(ex4.test2)),
+tryCatch(checkEquals(identify.duplicates.t, identifyDuplicates(ex4.test2)),
          error=function(err) errMsg(err))
