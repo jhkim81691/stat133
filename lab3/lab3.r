@@ -12,7 +12,8 @@ load('lab3-tests.rda')
 # t-test in each group to compare the birthweights of smoker babies vs
 # non-smoker babies. Your function should take the following arguments:
 #
-# <data>: any subset of the babies.data dataset <group.variable>: a string
+# <data>: any subset of the babies.data dataset
+# <group.variable>: a string
 #   containing the name of the variable that the data will be stratified by
 #   (one of: 'gestation', 'parity', 'age', 'height', or 'weight')
 # <group.cutoff>: a numeric value defining the boundary between the two
@@ -36,11 +37,31 @@ load('lab3-tests.rda')
 #   (black) and smokers (red). Do not worry about any other parameters for
 #   the plot.
 
-stratifiedTest <- function(data, group.variable, group.cutoff) {
+stratifiedTest <- function(data, group.variable, group.cutoff, test.alternative="less") {
 
     stopifnot(group.variable %in% names(data)[2:6]) 
-
-    # your code here
+	data.subset1 <- data[ (data[, group.variable] <= group.cutoff), ]
+	data.subset2 <- data[ (data[, group.variable]  > group.cutoff), ]
+	
+	#smoke(1) smoked, smoke(0) did not smoke
+	bwt1.smoke <- data.subset1[ (data.subset1[, "smoke"] == 1), "bwt"]
+	bwt1.nonsmoke <- data.subset1[ (data.subset1[, "smoke"] == 0), "bwt"]
+	bwt2.smoke <- data.subset2[ (data.subset2[, "smoke"] == 1), "bwt"]
+	bwt2.nonsmoke <- data.subset2[ (data.subset2[, "smoke"] == 0), "bwt"]
+	
+	t.output1 <- t.test(bwt1.smoke, bwt1.nonsmoke, test.alternative)
+	t.output2 <- t.test(bwt2.smoke, bwt2.nonsmoke, test.alternative)
+	
+	t.outputs <- list(c(t.output1[[1]], t.output1[[3]]), c(t.output2[[1]], t.output2[[3]]))
+	
+	par(mfrow=c(1,2))
+	plot(density(bwt1.nonsmoke), col="black", main="Below cutoff")
+	lines(density(bwt1.smoke), col="red")
+	
+	plot(density(bwt2.nonsmoke), col="black", main="Above cutoff")
+	lines(density(bwt2.smoke), col="red")
+	
+	return(t.outputs)
 }
 
 output.t1 <- stratifiedTest(babies.data, "height", 64)
