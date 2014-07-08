@@ -14,8 +14,9 @@ load('ex2-tests.rda')
 #   column. The row pairs should be maintained in this matrix
 
 colSorter <- function(data.matrix) {
-
-    # your code here **
+	sorted.idcs <- order(data.matrix[, 1], data.matrix[, 2])
+	sorted.matrix <- data.matrix[sorted.idcs, ]
+    return(sorted.matrix)
 }
 
 tryCatch(checkEquals(col.sorter.t, colSorter(ex2.test1)),
@@ -35,8 +36,9 @@ tryCatch(checkEquals(col.sorter.t, colSorter(ex2.test1)),
 #   might have to make adjustments).
 
 rowSorter <- function(data.matrix) {
-
-    # your code here **
+	sorted.idcs <- apply(data.matrix, 1, function(x) order(x, decreasing=T))
+	sorted.matrix <- t( sapply( (1:nrow(data.matrix)), function(x) data.matrix[x, sorted.idcs[, x]] ))
+	return(sorted.matrix)
 }
 
 tryCatch(checkEquals(row.sorter.t, rowSorter(ex2.test2)),
@@ -48,7 +50,7 @@ tryCatch(checkEquals(row.sorter.t, rowSorter(ex2.test2)),
 #
 # <data>: a data frame where one of the variables gives a factor level for
 #   each observation. The remaining observations are numeric.
-# <sort.name>: a character string giveing the name of the variable to
+# <sort.name>: a character string giving the name of the variable to
 #   sort by
 #
 # Your function should return the following:
@@ -59,8 +61,9 @@ tryCatch(checkEquals(row.sorter.t, rowSorter(ex2.test2)),
 #   <sort.name>
 
 factorSorter <- function(data, sort.name) {
-
-    # your code here ***
+	factor.variable <- data[, sapply(1:ncol(data), function(x) is.character(levels(data[, x])))]
+	sorted.factors <- by(data, factor.variable, function(x) x[order(x[, sort.name]), ])
+    return(sorted.factors)
 }
 
 tryCatch(checkEquals(factor.sorter.t, factorSorter(iris, 'Sepal.Length')),

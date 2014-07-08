@@ -16,8 +16,8 @@ load('ex3-tests.rda')
 # numeric giving the total number of NA values in the matrix.
 
 sumNA <- function(data.matrix) {
-
-    # your code here **
+	numNAs <- list( apply(data.matrix, 1, function(x) sum(is.na(x))), apply(data.matrix, 2, function(x) sum(is.na(x))), sum(is.na(data.matrix)))
+	return(numNAs)
 }
 
 tryCatch(checkEquals(sum.na.t, sumNA(ex3.test1)), error=function(err)
@@ -40,8 +40,8 @@ tryCatch(checkEquals(sum.na.t, sumNA(ex3.test1)), error=function(err)
 # <simulations>: a <n> x <k> matrix of simulated normal variables
 
 simulateNormals <- function(n, sim.mean=0, sim.var=1, k=10) {
-
-    # your code here *
+	simulations <- sapply( 1:k, function(x) rnorm(n, mean=sim.mean, sd = sqrt(sim.var)))
+	return(simulations)
 }
 
 set.seed(47)
@@ -60,8 +60,8 @@ tryCatch(checkEquals(simulate.normals.t, simulateNormals(100, 5, 4, 5)),
 #   element of <data.list>
 
 listLengths <- function(data.list) {
-
-    # your code here *
+	element.lengths <- sapply(data.list, length)
+	return(element.lengths)
 }
 
 tryCatch(checkEquals(list.lengths.t, listLengths(ex3.test2)),
@@ -80,8 +80,9 @@ tryCatch(checkEquals(list.lengths.t, listLengths(ex3.test2)),
 #   matrix should correspond to the row means of the jth list element.
 
 matrixListMeans <- function(matrix.list) {
-
-    # your code here *
+	matrix.row.means <- sapply( (1:length(matrix.list)), function(x)
+		apply(matrix.list[[x]], 1, mean))
+    return(matrix.row.means)
 }
 
 tryCatch(checkEquals(matrix.list.means.t, matrixListMeans(ex3.test3)),
@@ -105,8 +106,10 @@ tryCatch(checkEquals(matrix.list.means.t, matrixListMeans(ex3.test3)),
 # column i and j.
 
 standMatrixVariables <- function(data.matrix) {
-
-    # your code here ***
+	standardized.matrix <- sapply( (1:ncol(data.matrix)), function(x)
+		sapply( (1:ncol(data.matrix)), function(y) 
+		( mean(data.matrix[, x])-mean(data.matrix[, y]) ) / sd(c(data.matrix[, x], data.matrix[, y]))))
+	return(standardized.matrix)
 }
 
 tryCatch(checkEquals(stand.matrix.variables.t,
