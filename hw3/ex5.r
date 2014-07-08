@@ -15,8 +15,9 @@ load('ex5-tests.rda')
 #   five should be the final 5 rows of <data>
 
 firstLast <- function(data) {
-
-    # your code here *
+	n <- nrow(data)
+	first.last <- data[c(1:5, (n-4):n), ]
+    return(first.last)
 }
 
 tryCatch(checkEquals(first.last.t, firstLast(iris)), error=function(err)
@@ -34,8 +35,8 @@ tryCatch(checkEquals(first.last.t, firstLast(iris)), error=function(err)
 # observations (rows)
 
 npRatio <- function(data) {
-
-    # your code here *
+	np.ratio <- ncol(data)/nrow(data)
+    return(np.ratio)
 }
 
 tryCatch(checkEquals(np.ratio.t, npRatio(iris)), error=function(err)
@@ -53,8 +54,9 @@ tryCatch(checkEquals(np.ratio.t, npRatio(iris)), error=function(err)
 #   Mean, 3rd Quartile, and Max values for any numeric variable in <data>
 
 numericSummary <- function(data) {
-
-    # your code here **
+	data.factor <- sapply(1:ncol(data), function(x) is.character(levels(data[, x])))
+	numeric.summary <- sapply(data[, !data.factor], summary)
+    return(numeric.summary)
 }
 
 tryCatch(checkEquals(numeric.summary.t, unname(numericSummary(ex5.test1))),
@@ -71,8 +73,8 @@ tryCatch(checkEquals(numeric.summary.t, unname(numericSummary(ex5.test1))),
 #   (column) of the data frame
 
 getClass <- function(data) {
-
-    # your code here *
+	var.classes <- sapply(data, class)
+    return(var.classes)
 }
 
 tryCatch(checkEquals(get.class.t, unname(getClass(ex5.test1))), error=function(err)
