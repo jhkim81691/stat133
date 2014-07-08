@@ -1,0 +1,40 @@
+INFO:root:Executed R('load(\'ex1_tests.Rda\')')
+INFO:root:(2 points) R('all.equal(sum(is.na(readRemove(\'test.data\', max.na=1, sep=\';\'))), sum(is.na(test.1)))')[0] is True
+INFO:root:(2 points) R('all.equal(readRemove(\'babies.csv\', sep=\',\', header=T), test.2)')[0] is True
+ERROR:root:(2 points) Checking R('all.equal(sum(is.na(readRemove(\'test.data\', max.na=0, sep=\';\'))), 0)')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   Mean relative difference: 1
+INFO:root:(1 points) R('all.equal(4:7, truncate(1:10, trim=0.25))')[0] is True
+INFO:root:(1 points) R('all.equal(integer(0), truncate(1:10, trim=0.5))')[0] is True
+INFO:root:Executed R('load(\'../../instructor/hw1/ex2-tests.rda\')')
+INFO:root:Executed R('set.seed(47)')
+INFO:root:Executed R('check1.test = c(rnorm(100, 5, 1), 0)')
+INFO:root:(1 points) R('all.equal(standard.normalize.t1[[1]], standardNormalize(check1.test)[[1]], tolerance=1e-5)')[0] is True
+INFO:root:(2 points) R('standardNormalize(check1.test)[[2]]')[0] is True
+INFO:root:Executed R('set.seed(47)')
+INFO:root:Executed R('check2.test = rnorm(50, 5, 5)')
+INFO:root:(1 points) R('all.equal(standard.normalize.t2[[1]], standardNormalize(check2.test)[[1]], tolerance=1e-5)')[0] is True
+INFO:root:(2 points) R('!standardNormalize(check2.test)[[2]]')[0] is True
+INFO:root:Executed R('babies = read.csv(\'babies.csv\', header=T)')
+INFO:root:Executed R('mothers.indcs = superSubset(babies, 65, 150, 30, 0)')
+INFO:root:Executed R('mothers = babies[mothers.indcs,]')
+INFO:root:Executed R('subset_diff = smokeDiff(mothers)')
+INFO:root:(1 points) R('all.equal(babies.data, babies)')[0] is True
+INFO:root:(1 points) R('all.equal(mothers.subset, mothers)')[0] is True
+INFO:root:(1 points) R('all.equal(subset.diff, subset_diff)')[0] is True
+INFO:root:(2 points) R('all.equal(0.4834682, abs(smokeDiff(babies[500:1000, ])), tolerance=1e-6)')[0] is True
+INFO:root:(1 points) R('all.equal(0.2867848, abs(heavyDiff(babies[500:1000, ], 150)), tolerance=1e-6)')[0] is True
+INFO:root:(1 points) R('all.equal(NaN, heavyDiff(babies[0, ], 140))')[0] is True
+INFO:root:(1 points) R('all.equal(394, length(superSubset(babies, max.height=65, max.weight=150, max.age=30, parity=0)))')[0] is True
+INFO:root:Executed R('wc_data = read.table(\'world_cup.data\', header=T, sep=\' \')')
+INFO:root:Executed R('cfr_teams = sapply(wc_data$team, function(team) cardFoulRatio(wc_data, team))')
+INFO:root:Executed R('low_cfr_teams = wc_data[cfr_teams<0.12, ]')
+INFO:root:Executed R('low_cfr_rank = rankAGD(low_cfr_teams)')
+INFO:root:(1 points) R('all.equal(wc.data, wc_data)')[0] is True
+INFO:root:(1 points) R('all.equal(unname(cfr.teams), cfr_teams)')[0] is True
+INFO:root:(1 points) R('all.equal(low.cfr.teams, low_cfr_teams )')[0] is True
+INFO:root:(1 points) R('all.equal(low.cfr.rank, low_cfr_rank)')[0] is True
+INFO:root:(1 points) R('all.equal(-0.5, avgGoalDiff(wc_data, \'England\'), tolerance=1e-5)')[0] is True
+INFO:root:(1 points) R('all.equal(0.04761905, cardFoulRatio(wc_data, \'Spain\'), tolerance=1e-5)')[0] is True
+INFO:root:(2 points) R('all.equal(c(\'Uruguay\', \'Switzerland\', \'USA\'), as.character(rankAGD(wc_data[30:32, ])))')[0] is True
+INFO:root:You got a 28 out of 30.

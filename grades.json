@@ -2,7 +2,39 @@
     "email": "jhkim81691@berkeley.edu", 
     "github_name": "jhkim81691", 
     "grades": {
-        "assignment-1": {
+        "hw1": {
+            "earned": 28, 
+            "hash": "c9e4075470cbe38c688552b5d98292ab1dc07f7e", 
+            "note": "", 
+            "parts": {
+                "ex1": {
+                    "earned": 4, 
+                    "possible": 6
+                }, 
+                "ex2": {
+                    "earned": 8, 
+                    "possible": 8
+                }, 
+                "ex3": {
+                    "earned": 8, 
+                    "possible": 8
+                }, 
+                "ex4": {
+                    "earned": 8, 
+                    "possible": 8
+                }
+            }, 
+            "penalty": 0, 
+            "possible": 30
+        }, 
+        "lab0": {
+            "earned": 10, 
+            "hash": "abced91ea359c72006d7e80dbc1b2e572f56a977", 
+            "note": "", 
+            "penalty": 0, 
+            "possible": 10
+        }, 
+        "lab1": {
             "earned": 30, 
             "hash": "c2350a8ad05cf021b4a7ccf4e08e3c42bdb1ec6c", 
             "note": "", 
@@ -10,11 +42,21 @@
             "possible": 30
         }, 
         "lab2": {
-            "earned": 10, 
-            "hash": "abced91ea359c72006d7e80dbc1b2e572f56a977", 
+            "earned": 24, 
+            "hash": "c9e4075470cbe38c688552b5d98292ab1dc07f7e", 
             "note": "", 
+            "parts": {
+                "lab2": {
+                    "earned": 16, 
+                    "possible": 22
+                }, 
+                "lab2-figures": {
+                    "earned": 8, 
+                    "possible": 8
+                }
+            }, 
             "penalty": 0, 
-            "possible": 10
+            "possible": 30
         }
     }, 
     "login": "jhkim81691", 
