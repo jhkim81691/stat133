@@ -10,7 +10,8 @@ errMsg <- function(err) print(err)
 # Returns the number of factor vectors in the dataframe.
 
 num.factors = function(d) {
-    # your code here
+    num.fac <- sum( sapply(d, is.factor))
+	return(num.fac)
 }
 
 first = data.frame(x=rnorm(10), y=as.factor(1:10))
@@ -32,7 +33,8 @@ tryCatch(checkEquals(2, num.factors(second)),
 # Hint:  Use the previous function num.factors
 
 num.factors2 = function(l) {
-    # your code here
+    num.fac2 <- sum( unlist( lapply(l, num.factors)))
+	return(num.fac2)
 }
 
 list1 = list(first, second)
@@ -58,7 +60,8 @@ tryCatch(checkEquals(4, num.factors2(list2)),
 #  else return x*y
 
 sum.or.product = function(x, y=10) {
-    # your code here
+    if (sum(x > y) == length(x)) { value <- x+y } else { value <- x*y }
+	return(value)
 }
 
 x=1:10
@@ -87,7 +90,13 @@ tryCatch(checkEquals(x+y, sum.or.product(x,y)),
 #     FALSE when the number is odd
 
 odd = function(x, flip=FALSE) {
-    # your code here
+	if (flip == FALSE) {
+		odd.even <- ! ((x %% 2) == 0)
+	}
+	else {
+		odd.even <- ((x %% 2) == 0)
+	}
+	return(odd.even)
 }
 
 xs = c(rep(1,5),rep(2,5))
@@ -111,7 +120,12 @@ tryCatch(checkEquals(!os, odd(xs, flip=TRUE)),
 # computation of the return value.
 
 sum.adm = function(x, na.rm=FALSE){
-    # your code here
+	x.median <- median(x, na.rm)
+	x.adm <- abs(x - x.median)
+	sum.adm <- sum(x.adm, na.rm)
+	print(x.adm)
+	print(sum.adm)
+	return(sum.adm)	
 }
 
 x = 1:3
