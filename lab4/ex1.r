@@ -28,10 +28,8 @@ errMsg <- function(err) print(err)
 
 
 poisProc <- function(rate, t) {
-
-    # your code here
-
-
+	n.events <- rpois(1, rate*t)
+	return(n.events)
 }
 
 set.seed(47)
@@ -52,9 +50,8 @@ tryCatch(checkEquals(10, poisProc(0.5, 10)), error=function(err)
 #   <time.intervals>
 
 poisSim <- function(rate, time.intervals=1) {
-
-    # your code here
-
+	n.arrivals <- sapply(time.intervals, function(x) poisProc(rate, x))
+	return(n.arrivals)
 }
 
 set.seed(47)
@@ -70,9 +67,8 @@ tryCatch(checkEquals(c(2, 0, 1, 2, 1), poisSim(0.25, 1:5)),
 
 set.seed(47)
 
-# times <- your code here
-# simulations <- your code here
-
+times <- c(0.5, 1, 1.5, 2)
+simulations <- replicate(n=10000, poisSim(10, times), simplify=T)
 
 # In a single plotting window, create the following: one histogram of the
 # number of arrivals for each time interval (row of <simulations>).  The
@@ -86,3 +82,14 @@ set.seed(47)
 # HINT: it may be easiest to turn your simulations matrix into a list (w/
 # one entry per row) and use mapply
 
+breaks <- data.frame(apply(simulations, 1, min), apply(simulations, 1, max))
+xlim = c(0, max(simulations))
+par(mfrow=c(2,2))
+hist(simulations[1, ], freq=F, xlim=xlim, xlab='arrivals', main=NULL, breaks=breaks[1,1]:breaks[1,2])
+#lines(breaks[1,1]:breaks[1,2], dpois(breaks[1,1]:breaks[1,2], 10), col='red')
+hist(simulations[2, ], freq=F, xlim=xlim, xlab='arrivals', main=NULL, breaks=breaks[2,1]:breaks[2,2])
+#lines(breaks[2,1]:breaks[2,2], dpois(breaks[2,1]:breaks[2,2], 10), col='red')
+hist(simulations[3, ], freq=F, xlim=xlim, xlab='arrivals', main=NULL, breaks=breaks[3,1]:breaks[3,2])
+#lines(breaks[3,1]:breaks[3,2], dpois(breaks[3,1]:breaks[3,2], 10), col='red')
+hist(simulations[4, ], freq=F, xlim=xlim, xlab='arrivals', main=NULL, breaks=breaks[4,1]:breaks[4,2])
+#lines(breaks[4,1]:breaks[4,2], dpois(breaks[4,1]:breaks[4,2], 10), col='red')
