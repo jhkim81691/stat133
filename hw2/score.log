@@ -1,0 +1,31 @@
+INFO:root:Executed R('load(\'../instructor/hw2/ex1-tests2.rda\')')
+INFO:root:(2 points) R('all.equal(outlier.cutoff.t, outlierCutoff(ex1.test))')[0] is True
+INFO:root:(2 points) R('all.equal(remove.outlier.t, removeOutliers(ex1.test, 0.25))')[0] is True
+INFO:root:(2 points) R('all.equal(remove.outlier.t.2, removeOutliers(ex1.test, 0.10))')[0] is True
+INFO:root:Executed R('load(\'hw2/ex2-tests.rda\')')
+INFO:root:Executed R('set.seed(47)')
+INFO:root:Executed R('x = simpleNormSim(c(25, 50, 75))')
+INFO:root:(2 points) R('is.list(x)')[0] is True
+INFO:root:(2 points) R('all.equal(simple.norm.sim.t, x)')[0] is True
+INFO:root:Executed R('sizes_t = c(25, 50, 25, 50)')
+INFO:root:Executed R('means_t = c(0, 5, 5, 0)')
+INFO:root:Executed R('vars_t = c(1, 2, 1, 2)')
+INFO:root:Executed R('set.seed(47)')
+INFO:root:Executed R('x = advancedNormSim(sizes_t, means_t, vars_t)')
+INFO:root:(2 points) R('is.list(x)')[0] is True
+INFO:root:(2 points) R('all.equal(advanced.norm.sim.t, x)')[0] is True
+INFO:root:Executed R('load(\'hw2/ex3-tests.rda\')')
+INFO:root:Executed R('set.seed(47)')
+INFO:root:Executed R('x =  meanByLevel(iris)')
+INFO:root:(2 points) R('is.matrix(x)')[0] is True
+INFO:root:(2 points) R('all.equal(mean.by.level.t, x)')[0] is True
+INFO:root:Executed R('x = stdLevelDiff(iris)')
+INFO:root:(2 points) R('is.matrix(x)')[0] is True
+INFO:root:(2 points) R('all.equal(std.level.diff.t, abs(x))')[0] is True
+INFO:root:Executed R('load(\'hw2/ex4-tests.rda\')')
+INFO:root:(2 points) R('all.equal(numeric(0), identifyDuplicates(ex4.test1))')[0] is True
+INFO:root:Executed R('x = identifyDuplicates(ex4.test2)')
+INFO:root:(2 points) R('is.matrix(x)')[0] is True
+INFO:root:(2 points) R('if (is.null(x)) FALSE else is.null(names(x))')[0] is True
+INFO:root:(2 points) R('all.equal(identify.duplicates.t, x)')[0] is True
+INFO:root:You got a 30 out of 30.
