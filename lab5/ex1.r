@@ -17,12 +17,13 @@ load('ex1-tests.rda')
 # function.
 
 dataDist <- function(data, norm='euclidean') {
-
-    # your code here
-
+	data.is.numeric <- sapply( 1:ncol(data), function(x) is.numeric(data[, x]))
+	dis.matrix <- dist(data[, data.is.numeric], method=norm)
+	
+    return(dis.matrix)
 }
 
-tryCatch(checkEquals(data.dist.t, dataDist(iris)), error=function(err)
+tryCatch(checkEquals(c(data.dist.t), c(dataDist(iris))), error=function(err)
          errMsg(err))
 
 
@@ -43,9 +44,10 @@ tryCatch(checkEquals(data.dist.t, dataDist(iris)), error=function(err)
 # HINT: you may find the cutree function useful
 
 clustLabel <- function(data, norm='euclidean', k) {
-
-    # your code here
-
+	data.hclust <- hclust(dataDist(data, norm))
+	data.cutree <- cutree(data.hclust, k=k)
+	
+    return(data.cutree)
 }
 
 tryCatch(checkEquals(clust.label.t, clustLabel(iris, k=3)),
@@ -73,9 +75,16 @@ tryCatch(checkEquals(clust.label.t, clustLabel(iris, k=3)),
 # name of the factor that occurs most frequently in vector
 
 evalClusters <- function(data, true.labels, norm='euclidean', k) {
-
-    # your code here
-
+	data.cutree <- clustLabel(data, norm=norm, k=k)
+	data.clusters <- lapply( 1:k, function(x) data.cutree==x)
+	
+	data.levels <- unclass(true.labels)
+	data.match.label <- lapply( 1:k, function(x) data.levels[data.clusters[[x]]])
+	data.frequent <- as.numeric(sapply( 1:k, function(x) names(which.max(table(data.match.label[[x]])))))
+	
+	factor.frac.logical <- sapply( 1:k, function(x) data.levels[data.clusters[[x]]] == data.frequent[x])
+	factor.frac <- sapply( 1:k, function(x) sum(factor.frac.logical[[x]]) / length(factor.frac.logical[[x]]))
+    return(factor.frac)
 }
 
 tryCatch(checkEquals(eval.clusters.t, evalClusters(iris, iris$Species, k=3)),
@@ -100,9 +109,13 @@ tryCatch(checkEquals(eval.clusters.t, evalClusters(iris, iris$Species, k=3)),
 # at <h>.
 
 heightCluster <- function(data, norm='euclidean', h, ...) {
-    
-    # your code here
-
+    data.hclust <- hclust(dataDist(data, norm))
+	data.cutree <- cutree(data.hclust, h=h)
+	
+	plot(data.hclust, ...)
+	abline(h = h, col="red")
+	
+	return(data.cutree)
 }
 
 tryCatch(checkEquals(height.cluster.t, heightCluster(iris, h=4, cex=0.2)),
