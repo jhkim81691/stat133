@@ -1,0 +1,21 @@
+INFO:root:(2 points) R('1 == length(poisProc(0.5, 10))')[0] is True
+INFO:root:(2 points) R('is.integer(poisProc(0.5, 10))')[0] is True
+INFO:root:Executed R('set.seed(47)')
+INFO:root:(2 points) R('all.equal(10, poisProc(0.5, 10))')[0] is True
+INFO:root:(2 points) R('all.equal(8, poisProc(0.3, 30))')[0] is True
+INFO:root:(2 points) R('all.equal(6, poisProc(1, 5))')[0] is True
+INFO:root:(2 points) R('1 == length(poisSim(0.5, 10))')[0] is True
+INFO:root:(2 points) R('is.integer(poisSim(0.5, c(10, 20)))')[0] is True
+INFO:root:Executed R('set.seed(47)')
+INFO:root:(2 points) R('all.equal(c(2, 0, 1, 2, 1), poisSim(0.25, 1:5))')[0] is True
+INFO:root:(2 points) R('all.equal(c(1, 0, 1, 1, 3) , poisSim(0.15, 4:8))')[0] is True
+INFO:root:(2 points) R('all.equal(c(0, 3) , poisSim(0.5, c(1,5)))')[0] is True
+INFO:root:(2 points) Are there four histograms in one figure? is y
+INFO:root:(2 points) Are the x-axis identical (0 to max arrivals)? is y
+INFO:root:(2 points) Is freq=F set for all histograms? is y
+INFO:root:(1 points) Is the x-axis labeled \'arrivals\'? is y
+INFO:root:(1 points) Is the main title NULL? is y
+ERROR:root:(2 points) Checking Is a fitted Poisson overlayed in red?
+ERROR:root:... Expecting: False
+ERROR:root:... But got:   n
+INFO:root:You got a 28 out of 30.
