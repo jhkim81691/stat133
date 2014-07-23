@@ -4,7 +4,7 @@ library(RUnit)
 load("digits.rda")
 
 # use knn to predict 
-prediction.knn = knn(d$train.x, d$test.x, d$train.y, k=10)
+prediction.knn = knn(d$train.x, d$test.x, d$train.y, k=5)
 
 # how well did it do?
 mean(prediction.knn == d$test.y)

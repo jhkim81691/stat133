@@ -15,7 +15,7 @@ apply(d$train.x[1:10, ], 1, drawImage)
 apply(d$test.x[1:10, ], 1, drawImage)
 
 # plot the first 10 examples of the number 8 from the training set
-# <-- your code here
+apply(d$train.x[d$train.y == 8, ][1:10, ], 1, drawImage)
 
 # compute the average digits for both the training and test set
 train.avg = sapply(by(d$train.x, d$train.y, colMeans), identity)
