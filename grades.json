@@ -85,6 +85,23 @@
             "penalty": 0, 
             "possible": 30
         }, 
+        "hw4": {
+            "earned": 24, 
+            "hash": "94cdcfb4937d9848e49073eca369bb4938f24ddf", 
+            "note": "", 
+            "parts": {
+                "ba_fig": {
+                    "earned": 7, 
+                    "possible": 7
+                }, 
+                "birth_assassination": {
+                    "earned": 17, 
+                    "possible": 23
+                }
+            }, 
+            "penalty": 0, 
+            "possible": 30
+        }, 
         "lab0": {
             "earned": 10, 
             "hash": "abced91ea359c72006d7e80dbc1b2e572f56a977", 
