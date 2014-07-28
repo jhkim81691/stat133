@@ -1,0 +1,21 @@
+INFO:root:Executed R('load(\'../instructor/lab5/lab5-tests2.rda\')')
+INFO:root:Executed R('output.t1 <- dataDist(cbind(iris, \'f\'), \'euclidean\')')
+INFO:root:(2 points) R('class(output.t1) == \'dist\'')[0] is True
+INFO:root:(2 points) R('length(output.t1) == 11175')[0] is True
+INFO:root:(2 points) R('all.equal(as.matrix(data.dist.t1), as.matrix(output.t1))')[0] is True
+INFO:root:Executed R('output.t1.1 <- dataDist(iris, \'maximum\')')
+INFO:root:(2 points) R('all.equal(as.matrix(data.dist.t1.1), as.matrix(output.t1.1))')[0] is True
+INFO:root:Executed R('output.t2 <- clustLabel(cbind(iris, \'f\'), \'euclidean\', 4)')
+INFO:root:(2 points) R('all.equal(length(output.t2), 150)')[0] is True
+INFO:root:(2 points) R('any(output.t2 < 1 | output.t2 > 4)')[0] is False
+INFO:root:(2 points) R('all.equal(clust.label.t2, output.t2)')[0] is True
+INFO:root:Executed R('output.t3 <- evalClusters(iris, iris$Species, \'euclidean\', 5)')
+INFO:root:(2 points) R('all.equal(length(output.t3), 5)')[0] is True
+INFO:root:(2 points) R('any(output.t3 < 0 | output.t3 > 1)')[0] is False
+INFO:root:(3 points) R('all.equal(eval.clusters.t3, output.t3)')[0] is True
+INFO:root:Executed R('output.t4 <- heightCluster(iris, \'euclidean\', 2)')
+INFO:root:(3 points) R('all.equal(height.cluster.t4, output.t4)')[0] is True
+INFO:root:(2 points) Is the dendrogram correct? is y
+INFO:root:(2 points) Is there a red line at h=4? is y
+INFO:root:(2 points) Has cex been adjusted? is y
+INFO:root:You got a 30 out of 30.
