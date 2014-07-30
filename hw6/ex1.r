@@ -170,7 +170,7 @@ pred.rf <- predict(spam.rf, spam$test.x, type="prob")
 rp.output <- plotROC(pred.rp[, 2], spam$test.y, add=F, col="blue")
 rf.output <- plotROC(pred.rf[, 2], spam$test.y, add=T, col="red")
 
-legend("bottomright", legend=c("RP Curve", "RF Curve"), col=c("blue", "red"), pch = "-", title = "ROC Curves")
+legend("bottomright", legend=c("RP Curve", "RF Curve"), fill=c("blue", "red"), title = "ROC Curves")
 
 # In the spam scenario, a true positive represents classifying spam email correctly
 # while a false positive represents classifying a good email as spam. For each
