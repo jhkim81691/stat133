@@ -35,8 +35,9 @@ load('hw6-tests.rda')
 # observations.
 
 tpr <- function(threshold, predicted, truth) {
-
-    # your code here
+	S <- predicted > threshold
+	true.p.rate <- sum(predicted[which(truth==1)]>threshold)/sum(truth==1)
+	return(true.p.rate)
 }
 
 tryCatch(checkEquals(hw6$tpr.t1, tpr(0.5, hw6$tpr.pr, hw6$tpr.tr)),
@@ -59,8 +60,9 @@ tryCatch(checkEquals(hw6$tpr.t1, tpr(0.5, hw6$tpr.pr, hw6$tpr.tr)),
 # from class 1 divided by the total number of false observations.
 
 fpr <- function(threshold, predicted, truth) {
-
-    # your code here
+	S <- predicted > threshold
+	false.p.rate <- sum(predicted[which(truth==0)]>threshold)/sum(truth==0)
+    return(false.p.rate)
 }
 
 tryCatch(checkEquals(hw6$fpr.t1, fpr(0.5, hw6$tpr.pr, hw6$tpr.tr)),
@@ -90,8 +92,20 @@ tryCatch(checkEquals(hw6$fpr.t1, fpr(0.5, hw6$tpr.pr, hw6$tpr.tr)),
 # fprs = the false positive rates over your threshold grid
 
 plotROC <- function(predicted, truth, add=F, ...) {
-
-    # your code here
+	threshold.grid <- seq(0, 1, by=0.01)
+	tprs <- sapply(threshold.grid, function(x) tpr(x, predicted,truth))
+	fprs <- sapply(threshold.grid, function(x) fpr(x, predicted,truth))
+	
+	if (add==T) {
+		lines(x=fprs, y=tprs, ...)
+	} else {
+		plot(x=fprs, y=tprs, type='l', main="ROC curve", xlab = "fpr", ylab = "tpr", xlim = c(0, 1), ylim = c(0, 1), ...)
+		abline(a=0, b=1, lty = 2)
+	}
+	list.tfprs <- list()
+	list.tfprs$tprs <- tprs
+	list.tfprs$fprs <- fprs
+	return(list.tfprs)
 }
 
 tryCatch(checkEquals(hw6$plotROC.t1, plotROC(hw6$tpr.pr, hw6$tpr.tr)),
@@ -110,7 +124,8 @@ library(rpart)
 library(randomForest)
 spam <- list()
 spam$data <- read.csv('spam-data.csv', header=F)
-
+spam$data[, 58] <- as.factor(spam$data[, 58])
+colnames(spam$data)[58] <- "spam"
 
 # Before running a classifier, please split your data into training and test
 # sets. To do this, randomly sample 3,500 observtions from your dataset using
@@ -118,7 +133,10 @@ spam$data <- read.csv('spam-data.csv', header=F)
 # "spam". Store the remaining observations as the element "test" in the list
 # "spam".
 # ***Make sure to set your seed to 47 before sampling***
-
+set.seed(47)
+spam$idcs <- sample(1:nrow(spam$data), 3500)
+spam$train <- spam$data[spam$idcs, ]
+spam$test <- spam$data[-spam$idcs, ]
 
 # fit a recursive partitioning classifier and a random forest classifier to your
 # training data. Use these to predict the probability that each observation is a
@@ -129,6 +147,18 @@ spam$data <- read.csv('spam-data.csv', header=F)
 # parameters.  *** Make sure to set your seed to 47 before fitting your
 # models***
 
+spam$train.x = spam$train[, -58]
+spam$train.y = spam$train[, 58]
+
+spam$test.x = spam$test[, -58]
+spam$test.y = spam$test[, 58]
+
+set.seed(47)
+spam.rp <- rpart(y~., method="class", data=data.frame(y=spam$train.y, spam$train.x))
+pred.rp <- predict(spam.rp, spam$test.x, type="prob")
+
+spam.rf <- randomForest(y~., method="class", data=data.frame(y=spam$train.y, spam$train.x), ntree=250)
+pred.rf <- predict(spam.rf, spam$test.x, type="prob")
 
 # Evaluate your two models using your plotROC function. Store the outputs as
 # <rp.output> and <rf.output> respectively. Please plot the ROC curves in the
@@ -136,6 +166,11 @@ spam$data <- read.csv('spam-data.csv', header=F)
 # convert your spam variable back to a 0-1 valued vector depending on how you
 # wrote your plotROC function.
 # Add a legend in the bottom right indicating the the model that each curve represents.
+
+rp.output <- plotROC(pred.rp[, 2], spam$test.y, add=F, col="blue")
+rf.output <- plotROC(pred.rf[, 2], spam$test.y, add=T, col="red")
+
+legend("bottomright", legend=c("RP Curve", "RF Curve"), fill=c("blue", "red"), title = "ROC Curves")
 
 # In the spam scenario, a true positive represents classifying spam email correctly
 # while a false positive represents classifying a good email as spam. For each
@@ -157,8 +192,11 @@ spam$data <- read.csv('spam-data.csv', header=F)
 # <fpr> are not the same length.
 
 constrainedFPR <- function(tpr, fpr, tpr.constraint) {
-
-    # your code here
+	if (length(tpr)!=length(fpr)) stop("unequal input lengths")
+	else {
+		constrained.FPR <- min(fpr[which(tpr>tpr.constraint)])
+		return(constrained.FPR)
+	}
 }
 
 tryCatch(checkEquals(hw6$constrainedFPR.t1, constrainedFPR(hw6$plotROC.t1$tprs,
@@ -176,3 +214,9 @@ tryCatch(checkEquals(hw6$constrainedFPR.t1, constrainedFPR(hw6$plotROC.t1$tprs,
 # <min.fpr.rf>? Use the same grid of probabilities as in your plotROC function
 # and store these values as <rp.threshold>.
 
+min.fpr.rp <- constrainedFPR(rp.output$tprs, rp.output$fprs, 0.95)
+min.fpr.rf <- constrainedFPR(rf.output$tprs, rf.output$fprs, 0.95)
+
+threshold.grid <- seq(0, 1, by=0.01)
+rp.threshold <- threshold.grid[which(rp.output$fprs==min.fpr.rp)]
+rf.threshold <- threshold.grid[which(rf.output$fprs==min.fpr.rf)]
