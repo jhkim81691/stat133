@@ -223,5 +223,6 @@
     "login": "jhkim81691", 
     "name": "Jaeho Kim", 
     "status": "enrolled", 
-    "url": "git@github.com:jhkim81691/stat133.git"
+    "url": "git@github.com:jhkim81691/stat133.git", 
+    "type": "students"
 }
