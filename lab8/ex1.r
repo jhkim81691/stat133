@@ -18,9 +18,7 @@ load('lab8-tests.rda')
 # observations should be normal mean = <mu2> and var = <var2>.
 
 normalMixture <- function(n1, n2, mu1, var1, mu2, var2) {
-
-    # your code here
-
+    return(c(rnorm(n1, mu1, sqrt(var1)), rnorm(n2, mu2, sqrt(var2))))
 }
 
 set.seed(47)
@@ -41,8 +39,9 @@ tryCatch(checkEquals(lab8$normalMixture.t, output.1),
 # 1/(1+exp(-y)) where y=<beta0>+<beta1>*X
 
 logGenerator<- function(X, beta0, beta1) {
-
-    # your code here
+	y<- beta0 + beta1 * X
+    output <- 1 / (1+exp(-y))
+	return(output)
 }
 
 set.seed(47)
@@ -60,9 +59,8 @@ tryCatch(checkEquals(lab8$logGenerator.t, output.2), error=function(err)
 # each value in <p>.
 
 toBinom <- function(p) {
-
-    # your code here
-
+	r.vars <- sapply(p, function(x) rbinom(1, 1, x))
+    return(r.vars)
 }
 
 set.seed(47)
@@ -79,9 +77,8 @@ tryCatch(checkEquals(lab8$toBinom.t, output.3), error=function(err) errMsg(err))
 # and true values.
 
 mae <- function(true.vals, pred.vals) {
-
-    # your code here
-
+	mean.abs.err <- mean(abs(true.vals - pred.vals))
+	return(mean.abs.err)
 }
 
 tryCatch(checkEquals(1, mae(1:5, 2:6)), error=function(err) errMsg(err))
@@ -105,4 +102,14 @@ tryCatch(checkEquals(1, mae(1:5, 2:6)), error=function(err) errMsg(err))
 #otherwise***
 
 set.seed(47)
+x.vals <- normalMixture(50, 50, -1, 1, 1, 1)
+p.vals <- logGenerator(x.vals, 0, 5)
+y.vals <- toBinom(p.vals)
+model.data <- data.frame(x=x.vals, y=y.vals)
+fit.lm <- lm(y~x, data=model.data)
+fit.log <- glm(y~x, family = binomial, data=model.data)
+preds.lm <- predict(fit.lm)
+preds.log <- predict(fit.log, type='response')
 
+mae.lm <- mae(p.vals, preds.lm)
+mae.log <- mae(p.vals, preds.log)
