@@ -218,6 +218,23 @@
             }, 
             "penalty": 0, 
             "possible": 30
+        }, 
+        "hw5": {
+            "note": "", 
+            "hash": "213459967149b1f1114fa73858fc1954c98cb26f", 
+            "earned": 30, 
+            "possible": 30, 
+            "penalty": 0, 
+            "parts": {
+                "ex1_fig": {
+                    "possible": 10, 
+                    "earned": 10
+                }, 
+                "ex1": {
+                    "possible": 20, 
+                    "earned": 20
+                }
+            }
         }
     }, 
     "login": "jhkim81691", 
