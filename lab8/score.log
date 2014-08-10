@@ -1,0 +1,28 @@
+INFO:root:Executed R('load(\'../../instructor/assignments/lab8/lab8-tests2.rda\')')
+INFO:root:Executed R('set.seed(47)')
+INFO:root:Executed R('normalmixture.t1 <- normalMixture(10, 10, 0, 1, 0, 1)')
+INFO:root:Executed R('normalmixture.t2 <- normalMixture(5, 5, 0, 2, 0, 2)')
+INFO:root:(2 points) R('20 == length(normalmixture.t1)')[0] is True
+INFO:root:(2 points) R('grade.l8$normalmixture.t1 == normalmixture.t1')[0] is True
+INFO:root:(2 points) R('grade.l8$normalmixture.t2 == normalmixture.t2')[0] is True
+INFO:root:Executed R('set.seed(47)')
+INFO:root:Executed R('loggenerator.t1 <- logGenerator(grade.l8$normalmixture.t1, 5, 10)')
+INFO:root:Executed R('n.lg <- sum(loggenerator.t1 <=1 &loggenerator.t1 >= 0)')
+INFO:root:(2 points) R('20 == n.lg')[0] is True
+INFO:root:(2 points) R('20 == length(loggenerator.t1)')[0] is True
+INFO:root:(2 points) R('grade.l8$loggenerator.t1 == loggenerator.t1')[0] is True
+INFO:root:Executed R('set.seed(47)')
+INFO:root:Executed R('tobinom.t1 <- toBinom(grade.l8$loggenerator.t1)')
+INFO:root:Executed R('n.tb <- sum(tobinom.t1 <=1 & tobinom.t1 >= 0)')
+INFO:root:(2 points) R('20 == n.tb')[0] is True
+INFO:root:(2 points) R('20 == length(tobinom.t1)')[0] is True
+INFO:root:(2 points) R('grade.l8$tobinom.t1 == tobinom.t1')[0] is True
+INFO:root:Executed R('mae.t1 <- mae(1:10, 3:12)')
+INFO:root:(2 points) R('2 == mae.t1')[0] is True
+INFO:root:(2 points) R('grade.l8$x.vals == x.vals')[0] is True
+INFO:root:(2 points) R('grade.l8$p.vals == p.vals')[0] is True
+INFO:root:(2 points) R('grade.l8$preds.lm == preds.lm')[0] is True
+INFO:root:(2 points) R('grade.l8$preds.log == preds.log')[0] is True
+INFO:root:(1 points) R('all.equal(grade.l8$mae.lm, mae.lm, tolerance=1e-4)')[0] is True
+INFO:root:(1 points) R('all.equal(grade.l8$mae.log, mae.log, tolerance=1e-4)')[0] is True
+INFO:root:You got a 30 out of 30.
