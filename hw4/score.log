@@ -1,4 +1,4 @@
-INFO:root:Executed R('load(\'../instructor/hw4/hw4-tests2.rda\')')
+INFO:root:Executed R('load(\'../../instructor/assignments/hw4/hw4-tests2.rda\')')
 INFO:root:Executed R('set.seed(47)')
 INFO:root:Executed R('output.t1 <- generateKids(0.5, 1, test.df)')
 INFO:root:(2 points) R('all.equal(6, nrow(output.t1))')[0] is True
@@ -11,22 +11,13 @@ INFO:root:Executed R('set.seed(47)')
 INFO:root:Executed R('output.t2 <- nextGeneration(0.25, 1, generate.kids.t)')
 INFO:root:(3 points) R('all.equal(hw4$next.generation, output.t2)')[0] is True
 INFO:root:(2 points) R('all.equal(1:7, output.t2$child.id)')[0] is True
-ERROR:root:(2 points) Checking R('all.equal(hw4$sim.1, sim.1)')[0]
+INFO:root:(2 points) R('all.equal(unlist(hw4$sim.1), unlist(sim.1), check.attributes=F, tolerance=1e-5)')[0] is True
+ERROR:root:(2 points) Checking R('all.equal(unlist(hw4$sim.2), unlist(sim.2), check.attributes=F, tolerance=1e-5)')[0]
 ERROR:root:... Expecting: True
-ERROR:root:... But got:   Component 1: Component 1: Component 2: Mean relative difference: 1
-ERROR:root:(2 points) Checking R('all.equal(hw4$sim.2, sim.2)')[0]
+ERROR:root:... But got:   Numeric: lengths (5556, 5560) differ
+ERROR:root:(2 points) Checking R('all.equal(unlist(hw4$sim.3), unlist(sim.3), check.attributes=F, tolerance=1e-5)')[0]
 ERROR:root:... Expecting: True
-ERROR:root:... But got:   Component 1: Component 1: Component 2: Mean relative difference: 1
-ERROR:root:(2 points) Checking R('all.equal(hw4$sim.3, sim.3)')[0]
-ERROR:root:... Expecting: True
-ERROR:root:... But got:   Component 1: Length mismatch: comparison on first 1 components
+ERROR:root:... But got:   Numeric: lengths (86604, 187340) differ
 INFO:root:(1 points) R('all.equal(1000, length(sim.3))')[0] is True
 INFO:root:(2 points) R('all.equal(hw4$gens.survived, gensSurvived(hw4$sim.3))')[0] is True
-INFO:root:(1 points) Are densities on the same plot? is y
-INFO:root:(1 points) Is the x-axis labeled 'generations survived'? is y
-INFO:root:(1 points) Is the main title 'BA-Simulation'? is y
-INFO:root:(1 points) Are the groups colored correctly? is y
-INFO:root:(1 points) Is the bandwidth set correctly'? is y
-INFO:root:(1 points) Is the legend in the top right'? is y
-INFO:root:(1 points) Do the legend colors match the appropriate simulation? is y
-INFO:root:You got a 24 out of 30.
+INFO:root:You got a 26 out of 30.
