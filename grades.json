@@ -53,54 +53,54 @@
             "possible": 30
         }, 
         "hw3": {
-            "earned": 26, 
-            "hash": "c5b5dc4bbb02e6b73a9fe61e77d91bbe6e1daad5", 
             "note": "", 
+            "hash": "c5b5dc4bbb02e6b73a9fe61e77d91bbe6e1daad5", 
+            "earned": 28, 
+            "possible": 30, 
+            "penalty": 0, 
             "parts": {
-                "ex1": {
-                    "earned": 4, 
-                    "possible": 4
-                }, 
-                "ex2": {
-                    "earned": 2, 
-                    "possible": 4
-                }, 
-                "ex3": {
-                    "earned": 5, 
-                    "possible": 5
-                }, 
-                "ex4": {
-                    "earned": 1, 
-                    "possible": 1
-                }, 
                 "ex4_fig": {
                     "earned": 9, 
                     "possible": 11
                 }, 
+                "ex4": {
+                    "possible": 1, 
+                    "earned": 1
+                }, 
                 "ex5": {
                     "earned": 5, 
                     "possible": 5
+                }, 
+                "ex2": {
+                    "possible": 4, 
+                    "earned": 4
+                }, 
+                "ex3": {
+                    "possible": 5, 
+                    "earned": 5
+                }, 
+                "ex1": {
+                    "earned": 4, 
+                    "possible": 4
                 }
-            }, 
-            "penalty": 0, 
-            "possible": 30
+            }
         }, 
         "hw4": {
-            "earned": 24, 
-            "hash": "94cdcfb4937d9848e49073eca369bb4938f24ddf", 
             "note": "", 
+            "hash": "94cdcfb4937d9848e49073eca369bb4938f24ddf", 
+            "earned": 26, 
+            "possible": 30, 
+            "penalty": 0, 
             "parts": {
                 "ba_fig": {
                     "earned": 7, 
                     "possible": 7
                 }, 
                 "birth_assassination": {
-                    "earned": 17, 
-                    "possible": 23
+                    "possible": 23, 
+                    "earned": 19
                 }
-            }, 
-            "penalty": 0, 
-            "possible": 30
+            }
         }, 
         "lab0": {
             "earned": 10, 
