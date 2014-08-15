@@ -1,0 +1,35 @@
+INFO:root:(4 points) R('TRUE')[0] is True
+INFO:root:Executed R('load(\'../../instructor/assignments/hw8/hw8-tests2.rda\')')
+INFO:root:Executed R('set.seed(47)')
+INFO:root:Executed R('heights.output <- heights(10, 50, 5)')
+INFO:root:Executed R('ages.output <- ages(10, 25, 40)')
+INFO:root:Executed R('convert.heights.output <- convert.heights(hw8$heights.t)')
+INFO:root:Executed R('convert.weights.output <- convert.weights(hw8$heights.t)')
+INFO:root:Executed R('compute.bmi.output1 <- compute.bmi(hw8$heights.t, hw8$heights.t)')
+INFO:root:Executed R('compute.bmi.output2 <- compute.bmi(hw8$heights.t, 1)')
+INFO:root:(2 points) R('all.equal(hw8$heights.t, heights.output)')[0] is True
+INFO:root:(2 points) R('all.equal(hw8$ages.t, ages.output)')[0] is True
+INFO:root:(2 points) R('all.equal(hw8$convert.heights.t, convert.heights.output)')[0] is True
+INFO:root:(2 points) R('all.equal(hw8$convert.weights.t, convert.weights.output)')[0] is True
+ERROR:root:(2 points) Checking R('all.equal(hw8$compute.bmi.t1, compute.bmi.output1)')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   Mean relative difference: 0.9999
+INFO:root:(2 points) R('is.null(compute.bmi.output2)')[0] is True
+INFO:root:(2 points) R('all.equal(hw8$female$df.base, female$df.base, check.attributes=F)')[0] is True
+INFO:root:(2 points) R('all.equal(hw8$male$df.base, male$df.base, check.attributes=F)')[0] is True
+ERROR:root:(2 points) Checking R('all.equal(hw8$female$df, female$df, check.attributes=F)')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   Component 6: Mean relative difference: 0.9999
+ERROR:root:(2 points) Checking R('all.equal(hw8$male$df, male$df, check.attributes=F)')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   Component 6: Mean relative difference: 0.9999
+ERROR:root:(2 points) Checking R('all.equal(hw8$all$df, all$df, check.attributes=F)')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   Component 6: Mean relative difference: 0.9999
+ERROR:root:(2 points) Checking R('all.equal(hw8$full.hclust.labels, full.hclust.labels)')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   names for target but not for current
+ERROR:root:(2 points) Checking R('all.equal(hw8$red.km.labels, red.km$cluster)')[0]
+ERROR:root:... Expecting: True
+ERROR:root:... But got:   names for target but not for current
+INFO:root:You got a 18 out of 30.

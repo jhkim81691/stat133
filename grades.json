@@ -295,6 +295,23 @@
                     "earned": 16
                 }
             }
+        }, 
+        "hw8": {
+            "note": "", 
+            "hash": "211bc11427cd23d29bafbb31a1c016c226bf983a", 
+            "earned": 18, 
+            "possible": 30, 
+            "penalty": 0, 
+            "parts": {
+                "ex1_fig": {
+                    "possible": 4, 
+                    "earned": 4
+                }, 
+                "ex1": {
+                    "possible": 26, 
+                    "earned": 14
+                }
+            }
         }
     }, 
     "login": "jhkim81691", 
