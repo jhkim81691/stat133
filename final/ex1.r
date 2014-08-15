@@ -14,21 +14,20 @@ load("ex1.rda")
 # Create a subset of "df" containing only the measurement columns.
 # Save this as <df.x>
 
-# df.x = your code here
+df.x = data.frame(df[, 1:4])
 
 ### PCA
 
 # (1 point)
 # Create a prcomp object using the measurement data and call it pca
 
-# pca = your code here
+pca = prcomp(df.x)
 
 # (1 point)
 # Create a matrix pca.x which is the data projected onto it first 2
 # principal components
 
-# pca.x = your code here
-
+pca.x = pca$x[,1:2]
 
 ## kmeans
 
@@ -37,7 +36,7 @@ load("ex1.rda")
 # choosen starting points.  Save this as <km>.
 
 set.seed(42)
-# km = your code here
+km = kmeans(pca.x, 5, nstart=30)
 
 # Now using <km>, which you just made, you will need to create
 # several more variables.  Save the labels prouced for each
@@ -45,9 +44,9 @@ set.seed(42)
 # centers as <km.centers>.  Save the number of points in each
 # cluster as <km.counts>.
 
-# km.lables = your code here
-# km.centers = your code here
-# km.counts = your code here
+km.lables = km$cluster
+km.centers = km$centers
+km.counts = km$size
 
 ## Plots
 
@@ -64,4 +63,10 @@ set.seed(42)
 # The second plot should also have the km.centers plotted
 # on top as 'x's. Use any colors for your plots
 
-# your code here
+library(RColorBrewer)
+colors = brewer.pal(5, "Set1")
+
+par(mfrow=c(1,2))
+plot(pca.x, col=colors[df$f], main="true")
+plot(pca.x, col=colors[km.lables], main="kmeans")
+points(km.centers, pch=4)

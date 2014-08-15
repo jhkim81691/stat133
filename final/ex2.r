@@ -14,8 +14,8 @@ load('ex2.rda')
 # their homework grade. Store these as the variables <fit.final> and <fit.labs>
 # respectively
 
-# fit.final = your code here
-# fit.labs = your code here
+fit.final = lm(final~hw, grades)
+fit.labs = lm(labs~hw, grades)
 
 
 # (2 points)
@@ -37,9 +37,9 @@ load('ex2.rda')
 # will need to be accurate up to 5 decimal places)? Store
 # this as the variable <final.r.sq>
 
-# final.slope = your code here
-# labs.intercept = your code here
-# final.r.sq = your code here
+final.slope = fit.final$coefficients[2]
+labs.intercept = fit.labs$coefficients[1]
+final.r.sq = summary(fit.final)$r.squared
 
 # (2 points)
 # Consider a model that predicts an individual's final score using the following
@@ -52,7 +52,7 @@ load('ex2.rda')
 # Please compute the squared residuals for this model (this should be a length
 # 100 numeric vector). Store this as the variable <sq.residuals>.
 
-# sq.residuals = your code here
+sq.residuals = (grades$hw-grades$hw*2*final.slope)^2
 
 
 # (3 points)
@@ -61,5 +61,6 @@ load('ex2.rda')
 # variable <final.pi>. What fraction of the final scores fall within their
 # respective prediction interval?  Store this as the variable <prop.within>.
 
-# final.pi = your code here
-# prop.within = your code here
+final.conf <- predict(fit.final, interval="confidence", level=0.9)
+final.pi = final.conf[, 2:3]
+prop.within = sum( final.conf[,1]>final.conf[,2] & final.conf[,1]<final.conf[,3] ) / nrow(final.conf)
